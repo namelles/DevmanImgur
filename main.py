@@ -1,9 +1,11 @@
-import urllib.parse
-
 import requests
 import os
 from PIL import Image
 from urllib.parse import urlparse
+from dotenv import load_dotenv
+from imgurpython import ImgurClient
+from datetime import datetime
+from os import listdir
 
 
 def download_spacex_images(url):
@@ -85,8 +87,41 @@ def resize_image(image_path):
     image.save(f'{image_path}', format('JPEG'))
 
 
+def authenticate_imgur():
+    client_id = os.getenv('CLIENT_ID')
+    client_secret = os.getenv('CLIENT_SECRET')
+    client = ImgurClient(client_id, client_secret)
+    authorization_url = client.get_auth_url('pin')
+    print("Go to the following URL: {0}".format(authorization_url))
+    pin = input("Enter pin code: ")
+    credentials = client.authorize(pin, 'pin')
+    client.set_user_auth(credentials['access_token'], credentials['refresh_token'])
+    print("Authentication successful! Here are the details:")
+    print("   Access token:  {0}".format(credentials['access_token']))
+    print("   Refresh token: {0}".format(credentials['refresh_token']))
+    return client
+
+
+def upload_images_imgur(client):
+    album = None
+    folder_path = listdir('./images')
+    images = filter(lambda x: x.endswith('.jpg'), folder_path)
+    for image in images:
+        config = {
+            'album': album,
+            'name': f'{image}',
+            'title': f'{image}',
+            'description': 'Devman {0}'.format(datetime.now())
+        }
+        image_path = './images/' + image
+        print("Uploading image... ")
+        image = client.upload_from_path(image_path, config=config, anon=False)
+        print('Done')
+    return image
+
+
 if __name__ == '__main__':
-    image_name = 'hubble.jpeg'
+    load_dotenv()
     img_catalog_path = 'images/'
     limit_starts = 1
     starts_number = 100
@@ -95,4 +130,6 @@ if __name__ == '__main__':
     url = 'https://upload.wikimedia.org/wikipedia/commons/3/3f/HST-SM4.jpeg'
     collection_name = 'holiday_cards'
     download_hubble_collection_images(get_hubble_collection_images_id(collection_name))
+    upload_images_imgur(authenticate_imgur())
+
 
