@@ -2,19 +2,10 @@ import os
 import argparse
 from fetch_spacex import download_spacex_launch_images
 from fetch_hubble import download_hubble_collection_images
-from PIL import Image
 from dotenv import load_dotenv
 from imgurpython import ImgurClient
 from datetime import datetime
 from os import listdir
-
-
-def resize_image(image_path):
-    image = Image.open(image_path)
-    image.thumbnail((1800, 1800))
-    if image.mode in ["RGBA", "P"]:
-        image = image.convert('RGB')
-    image.save(f'{image_path}', format('JPEG'))
 
 
 def authenticate_imgur():

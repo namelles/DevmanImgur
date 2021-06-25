@@ -1,7 +1,7 @@
 import requests
 import os
+from сommon_functions import change_size_mode_image
 from urllib.parse import urlparse
-from PIL import Image
 
 
 def get_hubble_image_url(image_id):
@@ -40,12 +40,4 @@ def download_hubble_collection_images(collection_name):
         image_name = f'{image_id}{get_file_extension(get_hubble_image_url(image_id))}'
         with open(f'{img_catalog_path}{image_name}', 'wb') as file:
             file.write(response.content)
-        resize_image(f'{img_catalog_path}{image_name}')
-
-
-def resize_image(image_path):
-    image = Image.open(image_path)
-    image.thumbnail((1800, 1800))
-    if image.mode in ["RGBA", "P"]:
-        image = image.convert('RGB')
-    image.save(f'{image_path}', format('JPEG'))
+        change_size_mode_image(f'{img_catalog_path}{image_name}')
