@@ -1,9 +1,7 @@
 import requests
 import os
-from сommon_functions import change_size_mode_image
 from urllib.parse import urlparse
 from сommon_functions import IMG_CATALOG_PATH
-
 
 
 def get_hubble_image_url(image_id):
