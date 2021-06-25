@@ -26,7 +26,7 @@ Client id, Client Secret дла аутентификации/авторизац�
 
 Пример:
 ```
-python main.py --start_number 100 --collection 'holiday_cards'
+python main.py --start_number 100 --collection holiday_cards
 ```
 ### Цель проекта
 

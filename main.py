@@ -8,9 +8,7 @@ from datetime import datetime
 from os import listdir
 
 
-def authenticate_imgur():
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
+def authenticate_imgur(client_id, client_secret):
     client = ImgurClient(client_id, client_secret)
     authorization_url = client.get_auth_url('pin')
     print("Go to the following URL: {0}".format(authorization_url))
@@ -59,6 +57,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     collection_name = args.collection
     spacex_start_number = args.start_number
+    client_id = os.getenv('CLIENT_ID')
+    client_secret = os.getenv('CLIENT_SECRET')
     if spacex_start_number:
         download_spacex_launch_images(spacex_start_number)
     else:
@@ -67,4 +67,4 @@ if __name__ == '__main__':
         download_hubble_collection_images(collection_name)
     else:
         download_hubble_collection_images('holiday_cards')
-    upload_images_imgur(authenticate_imgur())
+    upload_images_imgur(authenticate_imgur(client_id, client_secret))
