@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 from imgurpython import ImgurClient
 from datetime import datetime
 from os import listdir
+from сommon_functions import IMG_CATALOG_PATH
 
 
 def authenticate_imgur(client_id, client_secret):
@@ -24,7 +25,7 @@ def authenticate_imgur(client_id, client_secret):
 
 def upload_images_imgur(client):
     album = None
-    list_images = listdir('./images')
+    list_images = listdir(IMG_CATALOG_PATH)
     images = filter(lambda x: x.endswith('.jpg'), list_images)
     for image in images:
         config = {
@@ -33,7 +34,7 @@ def upload_images_imgur(client):
             'title': f'{image}',
             'description': 'Devman {0}'.format(datetime.now())
         }
-        image_path = './images/' + image
+        image_path = IMG_CATALOG_PATH + image
         print("Uploading image... ")
         image = client.upload_from_path(image_path, config=config, anon=False)
         print('Done')
@@ -51,8 +52,7 @@ def create_argument_parser():
 
 if __name__ == '__main__':
     load_dotenv()
-    img_catalog_path = 'images/'
-    os.makedirs(img_catalog_path, exist_ok=True)
+    os.makedirs(IMG_CATALOG_PATH, exist_ok=True)
     parser = create_argument_parser()
     args = parser.parse_args()
     collection_name = args.collection

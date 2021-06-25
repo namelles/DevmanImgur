@@ -2,6 +2,8 @@ import requests
 import os
 from сommon_functions import change_size_mode_image
 from urllib.parse import urlparse
+from сommon_functions import IMG_CATALOG_PATH
+
 
 
 def get_hubble_image_url(image_id):
@@ -34,10 +36,9 @@ def get_file_extension(url):
 
 def download_hubble_collection_images(collection_name):
     images_id = get_hubble_collection_images_id(collection_name)
-    img_catalog_path = 'images/'
     for image_id in images_id:
         response = requests.get(get_hubble_image_url(image_id), verify=False)
         image_name = f'{image_id}{get_file_extension(get_hubble_image_url(image_id))}'
-        with open(f'{img_catalog_path}{image_name}', 'wb') as file:
+        with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
             file.write(response.content)
-        change_size_mode_image(f'{img_catalog_path}{image_name}')
+        change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')

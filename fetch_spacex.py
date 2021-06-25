@@ -2,16 +2,16 @@ import requests
 import os
 from сommon_functions import change_size_mode_image
 from urllib.parse import urlparse
+from сommon_functions import IMG_CATALOG_PATH
 
 
 def download_spacex_images(url):
-    img_catalog_path = 'images/'
     response = requests.get(url)
     response.raise_for_status()
     image_name = os.path.split(urlparse(url).path)[1]
-    with open(f'{img_catalog_path}{image_name}', 'wb') as file:
+    with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
         file.write(response.content)
-    change_size_mode_image(f'{img_catalog_path}{image_name}')
+    change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')
 
 
 def get_spacex_images_urls(spacex_starts_number):
