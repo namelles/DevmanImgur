@@ -7,6 +7,7 @@ from imgurpython import ImgurClient
 from datetime import datetime
 from os import listdir
 from сommon_functions import IMG_CATALOG_PATH
+from сommon_functions import change_size_mode_image
 
 
 def authenticate_imgur(client_id, client_secret):
@@ -35,6 +36,7 @@ def upload_images_imgur(client):
             'description': 'Devman {0}'.format(datetime.now())
         }
         image_path = IMG_CATALOG_PATH + image
+        change_size_mode_image(image_path)
         print("Uploading image... ")
         image = client.upload_from_path(image_path, config=config, anon=False)
         print('Done')

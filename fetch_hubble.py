@@ -39,4 +39,3 @@ def download_hubble_collection_images(collection_name):
         image_name = f'{image_id}{get_file_extension(image_url)}'
         with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
             file.write(response.content)
-        change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')

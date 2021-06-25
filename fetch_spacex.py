@@ -11,7 +11,6 @@ def download_spacex_images(url):
     image_name = os.path.split(urlparse(url).path)[1]
     with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
         file.write(response.content)
-    change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')
 
 
 def get_spacex_images_urls(spacex_starts_number):
