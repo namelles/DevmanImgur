@@ -34,10 +34,9 @@ def get_file_extension(url):
 def download_hubble_collection_images(collection_name):
     images_id = get_hubble_collection_images_id(collection_name)
     for image_id in images_id:
-        response = requests.get(get_hubble_image_url(image_id), verify=False)
-        image_name = f'{image_id}{get_file_extension(get_hubble_image_url(image_id))}'
+        image_url = get_hubble_image_url(image_id)
+        response = requests.get(image_url, verify=False)
+        image_name = f'{image_id}{get_file_extension(image_url)}'
         with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
             file.write(response.content)
         change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')
-
-download_hubble_collection_images('holiday_cards')
