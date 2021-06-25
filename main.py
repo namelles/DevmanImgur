@@ -30,8 +30,8 @@ def upload_images_imgur(client):
     for image in images:
         config = {
             'album': album,
-            'name': f'{image}',
-            'title': f'{image}',
+            'name': image,
+            'title': image,
             'description': 'Devman {0}'.format(datetime.now())
         }
         image_path = IMG_CATALOG_PATH + image

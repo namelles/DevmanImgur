@@ -10,10 +10,7 @@ def get_hubble_image_url(image_id):
     url = f'http://hubblesite.org/api/v3/image/{image_id}'
     response = requests.get(url)
     response.raise_for_status()
-    image_url = []
-    for url in response.json()['image_files']:
-        image_url.append(f"https:{url['file_url']}")
-    return image_url[-1]
+    return f"https:{response.json()['image_files'][-1]['file_url']}"
 
 
 def get_hubble_collection_images_id(collection_name):
@@ -42,3 +39,5 @@ def download_hubble_collection_images(collection_name):
         with open(f'{IMG_CATALOG_PATH}{image_name}', 'wb') as file:
             file.write(response.content)
         change_size_mode_image(f'{IMG_CATALOG_PATH}{image_name}')
+
+download_hubble_collection_images('holiday_cards')
