@@ -44,8 +44,8 @@ def upload_images_imgur(client):
 def create_argument_parser():
     parser = argparse.ArgumentParser(description="""Upload SpaceX and Hubble
                                      images to Imgur service.""")
-    parser.add_argument('--start_number', help='Set start number of SpaceX')
-    parser.add_argument('--collection', help="""Set Hubble photo collection.
+    parser.add_argument('--start_number', default='100', help='Set start number of SpaceX')
+    parser.add_argument('--collection', default='holiday_cards', help="""Set Hubble photo collection.
                         Example "holiday_cards""""")
     return parser
 
@@ -59,12 +59,6 @@ if __name__ == '__main__':
     spacex_start_number = args.start_number
     client_id = os.getenv('CLIENT_ID')
     client_secret = os.getenv('CLIENT_SECRET')
-    if spacex_start_number:
-        download_spacex_launch_images(spacex_start_number)
-    else:
-        download_spacex_launch_images('100')
-    if collection_name:
-        download_hubble_collection_images(collection_name)
-    else:
-        download_hubble_collection_images('holiday_cards')
+    download_spacex_launch_images(spacex_start_number)
+    download_hubble_collection_images(collection_name)
     upload_images_imgur(authenticate_imgur(client_id, client_secret))
