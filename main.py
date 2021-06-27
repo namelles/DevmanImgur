@@ -34,7 +34,7 @@ def upload_images_imgur(client, img_catalog_path):
             'title': image,
             'description': 'Devman {0}'.format(datetime.now())
         }
-        image_path = img_catalog_path + image
+        image_path = f'{img_catalog_path}{image}'
         change_size_mode_image(image_path)
         image = client.upload_from_path(image_path, config=config, anon=False)
     return image
