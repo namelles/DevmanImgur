@@ -36,9 +36,7 @@ def upload_images_imgur(client, img_catalog_path):
         }
         image_path = img_catalog_path + image
         change_size_mode_image(image_path)
-        print("Uploading image... ")
         image = client.upload_from_path(image_path, config=config, anon=False)
-        print('Done')
     return image
 
 
