@@ -6,7 +6,6 @@ from dotenv import load_dotenv
 from imgurpython import ImgurClient
 from datetime import datetime
 from os import listdir
-from сommon_functions import IMG_CATALOG_PATH
 from сommon_functions import change_size_mode_image
 
 
@@ -24,9 +23,9 @@ def authenticate_imgur(client_id, client_secret):
     return client
 
 
-def upload_images_imgur(client):
+def upload_images_imgur(client, img_catalog_path):
     album = None
-    list_images = listdir(IMG_CATALOG_PATH)
+    list_images = listdir(img_catalog_path)
     images = filter(lambda x: x.endswith('.jpg'), list_images)
     for image in images:
         config = {
@@ -35,7 +34,7 @@ def upload_images_imgur(client):
             'title': image,
             'description': 'Devman {0}'.format(datetime.now())
         }
-        image_path = IMG_CATALOG_PATH + image
+        image_path = img_catalog_path + image
         change_size_mode_image(image_path)
         print("Uploading image... ")
         image = client.upload_from_path(image_path, config=config, anon=False)
@@ -55,13 +54,14 @@ def create_argument_parser():
 
 if __name__ == '__main__':
     load_dotenv()
-    os.makedirs(IMG_CATALOG_PATH, exist_ok=True)
+    img_catalog_path = 'images/'
+    os.makedirs(img_catalog_path, exist_ok=True)
     parser = create_argument_parser()
     args = parser.parse_args()
     collection_name = args.collection
     spacex_start_number = args.start_number
     client_id = os.getenv('CLIENT_ID')
     client_secret = os.getenv('CLIENT_SECRET')
-    download_spacex_launch_images(spacex_start_number)
-    download_hubble_collection_images(collection_name)
-    upload_images_imgur(authenticate_imgur(client_id, client_secret))
+    download_spacex_launch_images(spacex_start_number, img_catalog_path)
+    download_hubble_collection_images(collection_name, img_catalog_path)
+    upload_images_imgur(authenticate_imgur(client_id, client_secret), img_catalog_path)
