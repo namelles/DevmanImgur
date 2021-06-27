@@ -46,7 +46,7 @@ def create_argument_parser():
     parser.add_argument('--start_number', default='100',
                         help='Set start number of SpaceX')
     parser.add_argument('--collection', default='holiday_cards',
-                        help="""Set Hubble photo collection. Example "holiday_cards""""")
+                        help='Set Hubble photo collection. Example "holiday_cards"')
     return parser
 
 
