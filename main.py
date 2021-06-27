@@ -58,8 +58,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
     collection_name = args.collection
     spacex_start_number = args.start_number
-    client_id = os.getenv('CLIENT_ID')
-    client_secret = os.getenv('CLIENT_SECRET')
+    imgur_client_id = os.getenv('IMGUR_CLIENT_ID')
+    imgur_client_secret = os.getenv('IMGUR_CLIENT_SECRET')
     download_spacex_launch_images(spacex_start_number, img_catalog_path)
     download_hubble_collection_images(collection_name, img_catalog_path)
-    upload_images_imgur(authenticate_imgur(client_id, client_secret), img_catalog_path)
+    upload_images_imgur(authenticate_imgur(imgur_client_id, imgur_client_secret), img_catalog_path)
