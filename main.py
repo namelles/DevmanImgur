@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 from imgurpython import ImgurClient
 from datetime import datetime
 from os import listdir
-from сommon_functions import change_size_mode_image
+from reformat_images import reformat_images
 
 
 def authenticate_imgur(client_id, client_secret):
@@ -35,7 +35,6 @@ def upload_images_imgur(client, img_catalog_path):
             'description': 'Devman {0}'.format(datetime.now())
         }
         image_path = f'{img_catalog_path}{image}'
-        change_size_mode_image(image_path)
         image = client.upload_from_path(image_path, config=config, anon=False)
     return image
 
@@ -62,4 +61,5 @@ if __name__ == '__main__':
     imgur_client_secret = os.getenv('IMGUR_CLIENT_SECRET')
     download_spacex_launch_images(spacex_start_number, img_catalog_path)
     download_hubble_collection_images(collection_name, img_catalog_path)
+    reformat_images(img_catalog_path)
     upload_images_imgur(authenticate_imgur(imgur_client_id, imgur_client_secret), img_catalog_path)
