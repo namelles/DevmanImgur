@@ -1,6 +1,7 @@
-import requests
 import os
 from urllib.parse import urlparse
+
+import requests
 
 
 def get_hubble_image_url(image_id):
