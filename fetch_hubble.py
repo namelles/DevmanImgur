@@ -1,5 +1,5 @@
 import os
-from urllib.parse import urlparse
+import urllib.parse
 
 import requests
 
@@ -25,7 +25,8 @@ def get_hubble_collection_images_id(collection_name):
 
 
 def get_file_extension(url):
-    image_extension = os.path.splitext(urlparse(url).path)[1]
+    url_path = urllib.parse.urlsplit(url)[2]
+    image_extension = os.path.splitext(urllib.parse.unquote(url_path))[1]
     return image_extension
 
 

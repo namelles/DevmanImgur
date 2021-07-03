@@ -1,5 +1,5 @@
 import os
-from urllib.parse import urlparse
+import urllib.parse
 
 import requests
 
@@ -7,7 +7,8 @@ import requests
 def download_spacex_images(url, img_catalog_path):
     response = requests.get(url)
     response.raise_for_status()
-    image_name = os.path.split(urlparse(url).path)[1]
+    url_path = urllib.parse.urlsplit(url)[2]
+    image_name = os.path.split(urllib.parse.unquote(url_path))[1]
     with open(f'{img_catalog_path}{image_name}', 'wb') as file:
         file.write(response.content)
 
