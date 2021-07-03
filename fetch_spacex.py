@@ -14,13 +14,8 @@ def download_spacex_image(url, img_catalog_path):
 
 
 def get_spacex_images_urls(spacex_starts_number):
-    url = 'https://api.spacexdata.com/v3/launches'
-    limit_starts = 1
-    params = {
-        'limit': limit_starts,
-        'offset': spacex_starts_number
-    }
-    response = requests.get(url, params=params)
+    url = f'https://api.spacexdata.com/v3/launches/{spacex_starts_number}'
+    response = requests.get(url)
     response.raise_for_status()
     return response.json()[0]['links']['flickr_images']
 
