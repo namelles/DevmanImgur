@@ -11,17 +11,17 @@ def get_hubble_image_url(image_id):
     return f"https:{response.json()['image_files'][-1]['file_url']}"
 
 
-def get_hubble_collection_images_id(collection_name):
+def get_hubble_collection_images_ids(collection_name):
     url = f'https://hubblesite.org/api/v3/images/{collection_name}'
     params = {
         'page': 'all'
     }
     response = requests.get(url, params=params)
     response.raise_for_status()
-    images_id = []
+    images_ids = []
     for image_id in response.json():
-        images_id.append(image_id['id'])
-    return images_id
+        images_ids.append(image_id['id'])
+    return images_ids
 
 
 def get_file_extension(url):
@@ -31,8 +31,8 @@ def get_file_extension(url):
 
 
 def download_hubble_collection_images(collection_name, img_catalog_path):
-    images_id = get_hubble_collection_images_id(collection_name)
-    for image_id in images_id:
+    images_ids = get_hubble_collection_images_ids(collection_name)
+    for image_id in images_ids:
         image_url = get_hubble_image_url(image_id)
         response = requests.get(image_url, verify=False)
         image_name = f'{image_id}{get_file_extension(image_url)}'
