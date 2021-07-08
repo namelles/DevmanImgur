@@ -38,7 +38,6 @@ def upload_images_imgur(client, img_catalog_path):
         }
         image_path = f'{img_catalog_path}{image}'
         image = client.upload_from_path(image_path, config=config, anon=False)
-    return image
 
 
 def create_argument_parser():
