@@ -14,14 +14,14 @@ from reformat_images import reformat_images
 def authenticate_imgur(client_id, client_secret):
     client = ImgurClient(client_id, client_secret)
     authorization_url = client.get_auth_url('pin')
-    print("Go to the following URL: {0}".format(authorization_url))
-    pin = input("Enter pin code: ")
+    print('Go to the following URL: {0}'.format(authorization_url))
+    pin = input('Enter pin code: ')
     credentials = client.authorize(pin, 'pin')
     client.set_user_auth(credentials['access_token'],
                          credentials['refresh_token'])
-    print("Authentication successful! Here are the details:")
-    print("   Access token:  {0}".format(credentials['access_token']))
-    print("   Refresh token: {0}".format(credentials['refresh_token']))
+    print('Authentication successful! Here are the details:')
+    print('   Access token:  {0}'.format(credentials['access_token']))
+    print('   Refresh token: {0}'.format(credentials['refresh_token']))
     return client
 
 
