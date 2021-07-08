@@ -18,7 +18,7 @@ def change_image_mode(image_path):
 
 def reformat_images(img_catalog_path):
     images_names = listdir(img_catalog_path)
-    images = filter(lambda x: x.endswith('.jpg'), images_names)
+    images = filter(lambda file: file.endswith('.jpg'), images_names)
     for image in images:
         image_path = f'{img_catalog_path}{image}'
         change_image_mode(image_path)
