@@ -27,8 +27,8 @@ def authenticate_imgur(client_id, client_secret):
 
 def upload_images_imgur(client, img_catalog_path):
     album = None
-    name_images = listdir(img_catalog_path)
-    images = filter(lambda x: x.endswith('.jpg'), name_images)
+    images_names = listdir(img_catalog_path)
+    images = filter(lambda x: x.endswith('.jpg'), images_names)
     for image in images:
         config = {
             'album': album,
