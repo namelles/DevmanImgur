@@ -18,10 +18,10 @@ def get_hubble_collection_image_ids(collection_name):
     }
     response = requests.get(url, params=params)
     response.raise_for_status()
-    images_ids = []
+    image_ids = []
     for image_id in response.json():
-        images_ids.append(image_id['id'])
-    return images_ids
+        image_ids.append(image_id['id'])
+    return image_ids
 
 
 def get_file_extension(url):
